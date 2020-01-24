@@ -6,6 +6,7 @@ Each pixel column in the training set has a name like pixelx, where x is an inte
 
 
 Keras Layers
+
 The first is the convolutional (Conv2D) layer. It is like a set of learnable filters. I choose to set 32 filters for the two firsts conv2D layers and 64 filters for the two last ones. Each filter transforms a part of the image (defined by the kernel size) using the kernel filter. The kernel filter matrix is applied on the whole image. Filters can be seen as a transformation of the image.
 The CNN can isolate features that are useful everywhere from these transformed images (feature maps).
 The second important layer in CNN is the pooling (MaxPool2D) layer. This layer simply acts as a downsampling filter. It looks at the 2 neighbouring pixels and picks the maximal value. These are used to reduce computational cost, and to some extent also reduce overfitting. We have to choose the pooling size (i.e. the area size pooled each time) more the pooling dimension is high, more the downsampling is important.
@@ -16,6 +17,7 @@ The Flatten layer is used to convert the final feature maps into a one single 1D
 In the end I used the features in two fully connected (Dense) layers which is just artificial a neural networks (ANN) classifier. In the last layer(Dense(10,activation="softmax")) the net outputs distribution of probability of each class.
 
 Optimizer
+
 Once our layers are added to the model, we need to set up a score function, a loss function and an optimisation algorithm.
 We define the loss function to measure how poorly our model performs on images with known labels. It is the error rate between the observed labels and the predicted ones. We use a specific form for categorical classifications (>2 classes) called the "categorical_crossentropy".
 The most important function is the optimizer. This function will iteratively improve parameters (filters kernel values, weights and bias of neurons ...) in order to minimise the loss.
@@ -23,6 +25,7 @@ I choose RMSprop (with default values), it is a very effective optimizer. The RM
 The metric function "accuracy" is used is to evaluate the performance our model. This metric function is similar to the loss function, except that the results from the metric evaluation are not used when training the model (only for evaluation).
 
 Learning Rate Reduction
+
 In order to make the optimizer converge faster and closest to the global minimum of the loss function, I used an annealing method of the learning rate (LR).
 The LR is the step by which the optimizer walks through the 'loss landscape'. The higher LR, the bigger are the steps and the quicker is the convergence. However, the sampling is very poor with a high LR and the optimizer could probably fall into a local minima.
 It’s better to have a decreasing learning rate during the training to reach efficiently the global minimum of the loss function.
